@@ -1,4 +1,4 @@
-package com.example.demo;
+package org.example.demo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.IIOException;
 import java.io.IOException;
 
 public class HelloController {

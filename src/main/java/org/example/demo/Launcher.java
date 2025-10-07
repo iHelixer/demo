@@ -1,9 +1,9 @@
-package com.example.demo;
+package org.example.demo;
 
 import javafx.application.Application;
 
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(com.example.demo.HelloApplication.class, args);
+        Application.launch(HelloApplication.class, args);
     }
 }
