@@ -29,6 +29,9 @@ public class HelloController {
     private TextField txtSearch;
 
     @FXML
+    private Button btnOth;
+
+    @FXML
     void openNewWindow(ActionEvent event) {
         Stage stage = new Stage();
         FXMLLoader mainLoader = new FXMLLoader(HelloApplication.class.getResource("edit.fxml"));
@@ -59,9 +62,28 @@ public class HelloController {
     @FXML
     void search(ActionEvent event) {
 
+    }
 
+    @FXML
+    void openNewWindowOtherLabs() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/demo/other.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            stage.setTitle("Other Labs");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnSearch.getScene().getWindow());
 
-
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
+
+
+
+
+
