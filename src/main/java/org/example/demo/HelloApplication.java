@@ -18,9 +18,24 @@ public class HelloApplication extends Application {
 
 
 
+        testData();
+
     }
+
+
+    private void testData(){
+        CollectionAddressBook addressBook = new CollectionAddressBook();
+        addressBook.fillTestData();
+        addressBook.print();
+    }
+
 
     public static void main(String[] args) {
         launch();
     }
+
+
+
+
+
 }

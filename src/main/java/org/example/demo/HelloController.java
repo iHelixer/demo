@@ -1,17 +1,22 @@
 package org.example.demo;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
+
+    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     @FXML
     private Button btnAdd;
@@ -30,6 +35,18 @@ public class HelloController {
 
     @FXML
     private Button btnOth;
+
+    @FXML
+    private TableView<Person> tableAddressBook;
+
+    @FXML
+    private TableColumn<Person, String> columnPIP;
+
+    @FXML
+    private TableColumn<Person, String> columnPhone;
+
+    @FXML
+    private Label labelCount;
 
     @FXML
     void openNewWindow(ActionEvent event) {
@@ -81,6 +98,27 @@ public class HelloController {
         }
     }
 
+
+
+    private void updateCountLabel(){
+        labelCount.setText("Кількість записів: " + addressBookImpl.getPersonList().size());
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        columnPIP.setCellValueFactory(new PropertyValueFactory<Person, String>("PIP"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("Phone"));
+        addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> change) {
+                updateCountLabel();
+            }
+        });
+
+        addressBookImpl.fillTestData();
+        tableAddressBook.setItems(addressBookImpl.getPersonList());
+    }
 }
 
 
