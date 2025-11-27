@@ -12,6 +12,7 @@ public class CollectionAddressBook implements  AddressBook{
 
     @Override
     public void add(Person person){
+        personList.add(person);
 
 
     }
@@ -23,6 +24,7 @@ public class CollectionAddressBook implements  AddressBook{
 
     @Override
     public void delete(Person person){
+        personList.remove(person);
 
     }
 
@@ -37,7 +39,7 @@ public class CollectionAddressBook implements  AddressBook{
         System.out.println();
         for (Person person: personList){
             number++;
-            System.out.println(number+") ПІП: " +person.getPIP()+"; Телефон: "+ person.getPhone());
+            System.out.println(number+") ПІП: " +person.getPip()+"; Телефон: "+ person.getPhone());
         }
     }
 

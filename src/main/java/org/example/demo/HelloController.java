@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,7 +41,7 @@ public class HelloController implements Initializable {
     private TableView<Person> tableAddressBook;
 
     @FXML
-    private TableColumn<Person, String> columnPIP;
+    private TableColumn<Person, String> columnPip;
 
     @FXML
     private TableColumn<Person, String> columnPhone;
@@ -48,22 +49,26 @@ public class HelloController implements Initializable {
     @FXML
     private Label labelCount;
 
-    @FXML
-    void openNewWindow(ActionEvent event) {
-        Stage stage = new Stage();
-        FXMLLoader mainLoader = new FXMLLoader(HelloApplication.class.getResource("edit.fxml"));
-        Scene mainScene = null;
-        try {
-            mainScene = new Scene(mainLoader.load(), 600, 200);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Edit!");
-        stage.setScene(mainScene);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(btnAdd.getScene().getWindow());
-        stage.show();
-    }
+    private Stage dialogStage;
+    private EditController editController;
+    private Parent editRoot;
+
+//    @FXML
+//    void openNewWindow(ActionEvent event) {
+//        Stage stage = new Stage();
+//        FXMLLoader mainLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/demo/edit.fxml"));
+//        Scene mainScene = null;
+//        try {
+//            mainScene = new Scene(mainLoader.load(), 600, 200);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        stage.setTitle("Edit!");
+//        stage.setScene(mainScene);
+//        stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initOwner(btnAdd.getScene().getWindow());
+//        stage.show();
+//    }
 
     @FXML
     void new_Alert(ActionEvent event) {
@@ -107,8 +112,8 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        columnPIP.setCellValueFactory(new PropertyValueFactory<Person, String>("PIP"));
-        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("Phone"));
+        columnPip.setCellValueFactory(new PropertyValueFactory<Person, String>("pip"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
         addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
             @Override
             public void onChanged(Change<? extends Person> change) {
@@ -118,7 +123,58 @@ public class HelloController implements Initializable {
 
         addressBookImpl.fillTestData();
         tableAddressBook.setItems(addressBookImpl.getPersonList());
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/edit.fxml"));
+            editRoot = loader.load();
+            editController = loader.getController();
+
+            System.out.println("editController = " + editController); // Debug: не має бути null
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    private void showDialog() {
+        if (dialogStage == null) {
+            dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(tableAddressBook.getScene().getWindow());
+            dialogStage.setScene(new Scene(editRoot));
+        }
+        dialogStage.showAndWait();
+    }
+
+
+    @FXML
+    void openWindow(ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        Person selected = tableAddressBook.getSelectionModel().getSelectedItem();
+
+        switch (btn.getId()) {
+            case "btnAdd":
+                editController.setPerson(new Person("", ""));
+                showDialog();
+                addressBookImpl.add(editController.getPerson());
+                break;
+
+            case "btnEdit":
+                if (selected != null) {
+                    editController.setPerson(selected);
+                    showDialog();
+                }
+                break;
+
+            case "btnDelete":
+                if (selected != null) {
+                    addressBookImpl.delete(selected);
+                }
+                break;
+        }
+    }
+
 }
 
 
