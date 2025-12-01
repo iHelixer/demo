@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,6 +40,9 @@ public class HelloController implements Initializable {
     private Button btnOth;
 
     @FXML
+    private Button btnTest;
+
+    @FXML
     private TableView<Person> tableAddressBook;
 
     @FXML
@@ -49,9 +54,26 @@ public class HelloController implements Initializable {
     @FXML
     private Label labelCount;
 
+    @FXML
+    private VBox scenePane;
+
+    @FXML
+    private RadioMenuItem first;
+
+    @FXML
+    private RadioMenuItem second;
+
+    @FXML
+    private ToggleGroup toggleContextText;
+
     private Stage dialogStage;
     private EditController editController;
     private Parent editRoot;
+    private Stage newStage;
+
+
+
+
 
 //    @FXML
 //    void openNewWindow(ActionEvent event) {
@@ -174,6 +196,40 @@ public class HelloController implements Initializable {
                 break;
         }
     }
+
+    @FXML
+    void openNewWindow() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("test.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+            stage.setTitle("Test");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnTest.getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void exitButton(ActionEvent event) {
+        newStage = (Stage) scenePane.getScene().getWindow();
+        System.out.println("Success");
+        newStage.close();
+    }
+
+    @FXML
+    void toggleContextText(ActionEvent event) {
+        if (toggleContextText.getSelectedToggle().equals(this.first))
+            txtSearch.setText("RandomText");
+        else if (toggleContextText.getSelectedToggle().equals(this.second))
+            txtSearch.setText(null);
+    }
+
+
 
 }
 
