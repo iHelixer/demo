@@ -58,6 +58,9 @@ public class HelloController implements Initializable {
     private VBox scenePane;
 
     @FXML
+    private Button btnDate;
+
+    @FXML
     private RadioMenuItem first;
 
     @FXML
@@ -229,6 +232,23 @@ public class HelloController implements Initializable {
             txtSearch.setText(null);
     }
 
+
+    @FXML
+    void openDateWindow(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("date.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+            stage.setTitle("Date");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnDate.getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
