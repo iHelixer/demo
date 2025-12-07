@@ -138,6 +138,9 @@
             <Button fx:id="btnSearch" layoutX="206.0" layoutY="48.0" mnemonicParsing="false" onAction="#openNewWindowOtherLabs" prefHeight="40.0" prefWidth="129.0" stylesheets="@my.css" text="Other Labs" />
             <Button fx:id="btnTest" layoutX="228.0" layoutY="10.0" mnemonicParsing="false" onAction="#openNewWindow" prefHeight="23.0" prefWidth="86.0" stylesheets="@my.css" text="Test" />
             <Button fx:id="btnDate" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#openDateWindow" prefHeight="23.0" prefWidth="86.0" stylesheets="@my.css" text="Date" />
+            <Button fx:id="btnFile" layoutX="119.0" layoutY="10.0" mnemonicParsing="false" onAction="#openFileWindow" prefHeight="23.0" prefWidth="86.0" stylesheets="@my.css" text="File" />
+            <Button fx:id="btnMedia" layoutX="336.0" layoutY="10.0" mnemonicParsing="false" onAction="#openMediaWindow" prefHeight="23.0" prefWidth="86.0" stylesheets="@my.css" text="Media" />
+            <Button fx:id="btnAudio" layoutX="438.0" layoutY="10.0" mnemonicParsing="false" onAction="#openAudioWindow" prefHeight="23.0" prefWidth="86.0" stylesheets="@my.css" text="Audio" />
          </children>
       </AnchorPane>
    </children>

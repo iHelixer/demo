@@ -61,6 +61,15 @@ public class HelloController implements Initializable {
     private Button btnDate;
 
     @FXML
+    private Button btnFile;
+
+    @FXML
+    private Button btnMedia;
+
+    @FXML
+    private Button btnAudio;
+
+    @FXML
     private RadioMenuItem first;
 
     @FXML
@@ -249,6 +258,62 @@ public class HelloController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+
+    @FXML
+    void openFileWindow() {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("file.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+            stage.setTitle("File");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnFile.getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void openMediaWindow(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("media.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+            stage.setTitle("Media");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnMedia.getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void openAudioWindow(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("audio.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 800, 400);
+            stage.setTitle("Audio");
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnAudio.getScene().getWindow());
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
